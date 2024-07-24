@@ -28,8 +28,12 @@ import com.example.janbarktask.R
 import com.example.janbarktask.utills.MyFileUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
@@ -42,6 +46,10 @@ import java.util.Date
 import java.util.Locale
 
 class GalleryViewModel(private val appContext: Context) : ViewModel() {
+
+    init {
+        Log.e("TAG000000", ":GalleryViewModel init ")
+    }
 
     fun takeScreenshot(mediaProjection: MediaProjection?) {
         mediaProjection?.let {
@@ -137,8 +145,9 @@ class GalleryViewModel(private val appContext: Context) : ViewModel() {
     }
 
 
-    private val _savedImageUriLatest = MutableStateFlow<Uri?>(null)
-    val savedImageUriLatest: StateFlow<Uri?> get() = _savedImageUriLatest
+    private val _savedImageUriLatest = MutableLiveData<Uri?>(null)
+    val savedImageUriLatest: LiveData<Uri?> get() = _savedImageUriLatest
+
 
     private suspend fun saveBitmapWithMediaStore(resource: Bitmap) {
         try {
@@ -173,7 +182,7 @@ class GalleryViewModel(private val appContext: Context) : ViewModel() {
                         values
                     )?.also {
                         Log.e("TAG00000", "saveBitmapWithMediaStore: dfskfdskfd")
-                        _savedImageUriLatest.value = it
+                        _savedImageUriLatest.postValue(it)
                         openOutputStream(it)?.use { stream ->
                             if (!resource.compress(
                                     Bitmap.CompressFormat.JPEG,
@@ -203,24 +212,28 @@ class GalleryViewModel(private val appContext: Context) : ViewModel() {
                     arrayOf(imageFile.toString()),
                     null
                 ) { _, _ -> }
-                _savedImageUriLatest.value = savePath.toUri()
+                _savedImageUriLatest.postValue(savePath.toUri())
             }
         } catch (ex: IOException) {
-            _savedImageUriLatest.value?.let { orphanUri ->
-                appContext.contentResolver.delete(
-                    orphanUri,
-                    null,
-                    null
-                )
+            _savedImageUriLatest.value.let { orphanUri ->
+                if (orphanUri != null) {
+                    appContext.contentResolver.delete(
+                        orphanUri,
+                        null,
+                        null
+                    )
+                }
                 _savedImageUriLatest.value = null
             }
         } catch (ex: FileNotFoundException) {
-            _savedImageUriLatest.value?.let { orphanUri ->
-                appContext.contentResolver.delete(
-                    orphanUri,
-                    null,
-                    null
-                )
+            _savedImageUriLatest.value.let { orphanUri ->
+                if (orphanUri != null) {
+                    appContext.contentResolver.delete(
+                        orphanUri,
+                        null,
+                        null
+                    )
+                }
                 _savedImageUriLatest.value = null
             }
         } catch (ex: Exception) {
@@ -293,18 +306,6 @@ class GalleryViewModel(private val appContext: Context) : ViewModel() {
         _imageList.postValue(imageList.toList().reversed())
     }
 
-    fun deleteExternalImage(uri: Uri) {
-        if (appContext.contentResolver.delete(uri, null, null) > 0) {
-            val temp = _imageList.value?.toMutableList()
-            temp?.apply {
-                remove(uri)
-                _imageList.postValue(toList())
-            }
-            appContext.showToast("Deleted...!")
-        } else {
-            appContext.showToast("Failed...!")
-        }
-    }
 
     private fun getCurrentTime(): String {
         val dateFormat = SimpleDateFormat("HH_mm_ss", Locale.getDefault())

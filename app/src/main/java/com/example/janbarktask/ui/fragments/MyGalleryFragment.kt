@@ -1,16 +1,14 @@
 package com.example.janbarktask.ui.fragments
 
-import android.Manifest
-import android.Manifest.permission.READ_MEDIA_IMAGES
 import android.app.Activity
 import android.app.RecoverableSecurityException
 import android.content.Context
-import android.content.Intent
 import android.media.MediaScannerConnection
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -21,6 +19,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
@@ -49,6 +48,7 @@ class MyGalleryFragment : Fragment() {
     private val binding by lazy {
         FragmentMyGalleryBinding.inflate(layoutInflater)
     }
+
     private val viewModel: GalleryViewModel by inject()
 
 
@@ -170,13 +170,9 @@ class MyGalleryFragment : Fragment() {
             }
         }
 
-        lifecycleScope.launch {
-            viewModel.savedImageUriLatest.collect {
-                it?.let {
-                    mContext.showToast("Capture screen shoot successfully")
-                } ?: kotlin.run {
-                    mContext.showToast("Something went wrong...!")
-                }
+        viewModel.savedImageUriLatest.observe(viewLifecycleOwner) {
+            it?.let {
+                viewModel.getImages()
             }
         }
     }
