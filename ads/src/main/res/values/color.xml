@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="black">#000000</color>
+    <color name="shimmer">#99D0D3D5</color>
+    <color name="white">#FFFFFF</color>
+    <!--    <color name="appDark">#946EFB</color>-->
+    <color name="addContent">#0C856B</color>
+    <color name="appColor">#0C856B</color>
+    <color name="addInnerColor">#F8F8F8</color>
+    <color name="addStrokeColor">#99D0D3D5</color>
+    <color name="transparent">#00000000</color>
+    
+</resources>

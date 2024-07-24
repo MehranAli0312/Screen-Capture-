@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_nav"
+    app:startDestination="@id/permissionFragment">
+
+    <fragment
+        android:id="@+id/permissionFragment"
+        android:name="com.example.janbarktask.ui.fragments.PermissionFragment"
+        android:label="fragment_permission"
+        tools:layout="@layout/fragment_permission">
+        <action
+            android:id="@+id/action_permissionFragment_to_myGalleryFragment"
+            app:destination="@id/myGalleryFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/myGalleryFragment"
+        android:name="com.example.janbarktask.ui.fragments.MyGalleryFragment"
+        android:label="fragment_myGallery"
+        tools:layout="@layout/fragment_my_gallery">
+
+        <action
+            android:id="@+id/action_myGalleryFragment_to_imagePreviewFragment"
+            app:destination="@id/imagePreviewFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/imagePreviewFragment"
+        android:name="com.example.janbarktask.ui.fragments.ImagePreviewFragment"
+        android:label="fragment_imagePreview"
+        tools:layout="@layout/fragment_image_preview">
+
+        <argument
+            android:name="imagePath"
+            app:argType="android.net.Uri" />
+
+    </fragment>
+
+</navigation>

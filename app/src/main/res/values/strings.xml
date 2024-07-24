@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">JanBark Task</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="open">Open</string>
+    <string name="share">Share</string>
+    <string name="delete">Delete</string>
+    <string name="folder_name">JanBarkDemo</string>
+    <string name="preview">Preview</string>
+    <string name="screenCapture">Screen Capture</string>
+    <string name="screenCaptureDetail">App will have Access to all of the information that is visible on your screen, So you need to allow permission</string>
+    <string name="storagePermissionDetail">Allow to access phone\\n\" + \"storage to save Photos</string>
+    <string name="allow">Allow</string>
+
+    <string name="accessibilityDetail">Before you can take a screenshot you need to enable the accessibility service in the phone settings. Press the button below to open the accessibility settings.</string>
+    <string name="toast_open_accessibility_settings">Please activate \"%1s\" in the accessibility settings</string>
+
+</resources>
