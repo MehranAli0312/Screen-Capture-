@@ -57,8 +57,9 @@ The Advanced Screenshot App is a feature-rich Android application designed to he
 - **Refresh Data:** Incorporates a swipe-to-refresh layout with RecyclerView to provide a seamless and efficient interface.
 - **LiveData and Coroutines:** Enhances the user experience with LiveData for data observation and coroutines for asynchronous operations.
 
-## Screenshots
+## Screenshots & Video
 
+https://youtu.be/MXJCY2cPMvY
 
 ## Installation
 
