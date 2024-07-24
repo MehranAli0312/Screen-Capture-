@@ -4,6 +4,24 @@
 
 The Advanced Screenshot App is a feature-rich Android application designed to help users capture, manage, and interact with screenshots. Built using Kotlin, the app follows modern Android development practices and offers a seamless user experience with a variety of functionalities.
 
+## Tech stack & Open-source libraries
+
+- **Minimum SDK level**: 24
+- **Language**: 100% Kotlin
+
+### Architecture
+
+- **MVVM Architecture**
+  - View: Utilizes View Binding to bind UI components to data sources in your app using a declarative approach.
+  - View Model: Manages UI-related data in a lifecycle-conscious way.
+  - Model: Represents the data and business logic of the application.
+
+- **Dependencies**
+  - **Dependency Injection**: Koin
+  - **Asynchronous Programming**: Flow/LiveData
+  - **Navigation**: Jetpack Navigation
+  - **Design**: Material Design
+
 ## Features
 
 ### Foreground Service and Notification
@@ -39,8 +57,14 @@ The Advanced Screenshot App is a feature-rich Android application designed to he
 - **Refresh Data:** Incorporates a swipe-to-refresh layout with RecyclerView to provide a seamless and efficient interface.
 - **LiveData and Coroutines:** Enhances the user experience with LiveData for data observation and coroutines for asynchronous operations.
 
+## Screenshots
+
+
 ## Installation
 
 1. **Clone the Repository:**
    ```bash
    git clone https://github.com/MehranAli0312/Screen-Capture-.git
+
+### Contribution
+Please contribute to this list! We need your support to keep this list up-to-date. If you find any incorrect data, feel free to fix it by opening a pull request or creating an issue.
